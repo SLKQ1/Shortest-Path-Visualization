@@ -6,16 +6,14 @@ WIDTH = 800
 WIN = pygame.display.set_mode((WIDTH, WIDTH))
 pygame.display.set_caption("A* Path Finding Algorithm Visualization")
 
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 255, 0)
-YELLOW = (255, 255, 0)
+PATH_GREEN = (62, 242, 2)
+START_GREEN = (0, 166, 69)
+BLUE_DARK = (30, 115, 252)
+BLUE_LIGHT = (120, 170, 250)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
-PURPLE = (128, 0, 128)
-ORANGE = (255, 165, 0)
 GREY = (128, 128, 128)
-TURQUOISE = (64, 224, 208)
+RED = (255, 47, 5)
 
 
 # node class to represent all nodes on grid
@@ -36,12 +34,12 @@ class Node:
         return self.row, self.col
 
     # method to see if node is closed
-    def is_visited(self):
-        return self.color == RED
+    def is_closed(self):
+        return self.color == BLUE_DARK
 
     # method to see if node is open
     def is_open(self):
-        return self.color == GREEN
+        return self.color == BLUE_LIGHT
 
     # method to see if node is a barrier
     def is_barrier(self):
@@ -49,11 +47,11 @@ class Node:
 
     # method to see if node is start node
     def is_start(self):
-        return self.color == ORANGE
+        return self.color == START_GREEN
 
     # method to see if node is end node
     def is_end(self):
-        return self.color == TURQUOISE
+        return self.color == RED
 
     # method to reset the color
     def reset(self):
@@ -61,11 +59,11 @@ class Node:
 
     # method to open node
     def make_open(self):
-        self.color = GREEN
+        self.color = BLUE_LIGHT
 
     # method to close a node
     def make_closed(self):
-        self.color = RED
+        self.color = BLUE_DARK
 
     # method to make node into barrier
     def make_barrier(self):
@@ -73,15 +71,15 @@ class Node:
 
     # method to make node into end node
     def make_end(self):
-        self.color = TURQUOISE
+        self.color = RED
 
     # method to make node into start node
     def make_start(self):
-        self.color = ORANGE
+        self.color = START_GREEN
 
     # method to make node into path node
     def make_path(self):
-        self.color = PURPLE
+        self.color = PATH_GREEN
 
     # method to draw node
     def draw(self, WIN):
@@ -205,14 +203,13 @@ def algorithm(draw, grid, start, end):
             if event.type == pygame.QUIT:
                 pygame.quit()
 
-            # removing the current node from priority queue and hash
+        # removing the current node from priority queue and hash
         current = open_set.get()[2]
         open_set_hash.remove(current)
 
         # if the current node is the end node, shortest path found
         if current == end:
-            reconstruct_path(came_from, end, draw)
-            end.make_end()
+            reconstruct_path(came_from, current, draw)
             start.make_start()
             return True
 
@@ -233,7 +230,8 @@ def algorithm(draw, grid, start, end):
                     open_set.put((f_score[neighbor], count, neighbor))
                     open_set_hash.add(neighbor)
                     # opening neighbor
-                    neighbor.make_open()
+                    if neighbor != end:
+                        neighbor.make_open()
 
         draw()
         # closing current node after consideration, if its not the start node
