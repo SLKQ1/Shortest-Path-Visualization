@@ -1,11 +1,14 @@
 import pygame
 import math
 import PathFindingAlgorithms.aStar as aStar
-
+from PathFindingAlgorithms.bfs import bfs
+# window settings
+pygame.init()
+mainClock = pygame.time.Clock()
 WIDTH = 800
 WIN = pygame.display.set_mode((WIDTH, WIDTH))
-pygame.display.set_caption("A* Path Finding Algorithm Visualization")
-
+pygame.display.set_caption("Shortest Path Algorithm Visualization")
+# colors being used
 PATH_GREEN = (62, 242, 2)
 START_GREEN = (0, 166, 69)
 BLUE_DARK = (30, 115, 252)
@@ -173,6 +176,10 @@ def main(win, width):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    run = False
+
             # checking if left mouse button pressed
             if pygame.mouse.get_pressed()[0]:
                 position = pygame.mouse.get_pos()
@@ -212,11 +219,14 @@ def main(win, width):
                     for row in grid:
                         for node in row:
                             node.update_neighbors(grid)
+                    # A*
+                    # aStar.a_Star(lambda: draw(
+                    #     WIN, grid, ROWS, width), grid, start, end)
 
-                    aStar.a_Star(lambda: draw(
-                        WIN, grid, ROWS, width), grid, start, end)
-
+                    # BFS
+                    bfs(lambda: draw(WIN, grid, ROWS, width), grid, start, end)
     pygame.quit()
+    sys.exit()
 
 
 main(WIN, WIDTH)

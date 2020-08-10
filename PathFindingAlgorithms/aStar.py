@@ -48,6 +48,7 @@ def a_Star(draw, grid, start, end):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
+                sys.exit()
 
         # removing the current node from priority queue and hash
         current = open_set.get()[2]
