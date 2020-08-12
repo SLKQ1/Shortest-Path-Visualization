@@ -19,7 +19,7 @@ def heuristic(n1, n2):
 
 
 # function for A* algorithm
-def a_Star(draw, grid, start, end):
+def aStar(draw, grid, start, end):
     # count var to see which node was inserted first (in order to break ties)
     count = 0
     # open set to store nodes that we are currently considering

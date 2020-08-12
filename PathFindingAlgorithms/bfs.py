@@ -46,7 +46,6 @@ def bfs(draw, grid, start, end):
 
 
 def reconstruct_path(prev, current, draw):
-    print(current)
     while current in prev:
         current = prev[current]
         if current != None:

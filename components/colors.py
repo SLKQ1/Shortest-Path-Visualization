@@ -1,0 +1,9 @@
+# colors being used
+PATH_GREEN = (62, 242, 2)
+START_GREEN = (0, 166, 69)
+BLUE_DARK = (30, 115, 252)
+BLUE_LIGHT = (120, 170, 250)
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+GREY = (128, 128, 128)
+RED = (255, 47, 5)
