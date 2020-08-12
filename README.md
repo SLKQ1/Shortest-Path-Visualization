@@ -1,5 +1,5 @@
 # Shortest-Path-Visualization
-This is a project that I made to get a better understanding of the shortest path algorithms and graph theory.
+This is a project that I am making to get a better understanding of the shortest path algorithms and graph theory.
 
 ## Current Algorithms 
 A* (using Manhattan distance) 
