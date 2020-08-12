@@ -91,12 +91,19 @@ def main(win, width):
                     for row in grid:
                         for node in row:
                             node.update_neighbors(grid)
+
                     # A*
                     aStar(lambda: draw(
                         WIN, grid, ROWS, width), grid, start, end)
 
                     # BFS
                     # bfs(lambda: draw(WIN, grid, ROWS, width), grid, start, end)
+
+                # resetting grid
+                if event.key == pygame.K_c:
+                    start = None
+                    end = None
+                    grid = make_grid(ROWS, width)
     pygame.quit()
     sys.exit()
 
